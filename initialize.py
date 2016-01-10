@@ -6,8 +6,8 @@ import matplotlib as mp
 
 infi = 999999999999
 
-sizeX = 10
-sizeY = 10
+sizeX = 5
+sizeY = 5
 deltaTheta = 0.01         # Dimensionless time steps
 
 tempA = np.zeros(shape=(sizeX,sizeY))
@@ -28,9 +28,16 @@ phi = 0.5     # Unsure of this value
 Na = 1        # Unsure of this value
 Peb = infi
 
+# For Wall 1
+Si = 0.5
+Rab = 1
+lamdaX = 0.05
+lamdaY = 0.05
+
+# For Wall 2
+Rcb = 1
+
 # Getting initial input over fluid B
 
 for j in range(sizeY):
   tempB[0,j] = 1         # For constant input
-
-print tempB
