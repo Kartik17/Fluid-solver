@@ -8,7 +8,7 @@ infi = 999999999999
 
 sizeX = 10
 sizeY = 10
-deltaTheta = 0.01         # Dimensionless time steps
+deltaTheta = 0.1         # Dimensionless time steps
 
 tempA = np.zeros(shape=(sizeX,sizeY))
 tempB = np.zeros(shape=(sizeX,sizeY))
@@ -21,6 +21,8 @@ tempW2 = np.zeros(shape=(sizeX,sizeY))
 Length = 10
 deltaX = Length/sizeX
 deltaY = Length/sizeY
+
+timesteps = 10
 
 # For fluid B
 Vb = 0

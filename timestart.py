@@ -9,10 +9,11 @@ from initialize import *
 
 # Constants for Fluid B
 b1 = Vb/deltaTheta + 1/(2*phi) + 1/(2*(1-phi)) + 1/(deltaX) + 2*Na/(Peb*deltaX*deltaX)
-ktb1 = 1/(phi*b1)
-ktb2 = 1/((1-phi)*b1)
-ktb3 = -1/(deltaX*b1)
-ktb4 = Na/(Peb*deltaX*deltaX*b1)
+ktb1 = Vb/(deltaTheta*b1)
+ktb2 = 1/(phi*b1)
+ktb3 = 1/((1-phi)*b1)
+ktb4 = -1/(deltaX*b1)
+ktb5 = Na/(Peb*deltaX*deltaX*b1)
 
 # Constants for Wall 1
 W1 = Si/deltaTheta + 1/Si + Rab + 2*lamdaX*Na/(deltaX*deltaX) + 2*lamdaY*Na/(deltaY*deltaY)
@@ -65,7 +66,7 @@ def gauss_siedel(num, arr):
 #      import pdb;pdb.set_trace()
         if not checker[i][j]:
           if num == 1:
-            val = ktb1*(tempW1[i,j] + tempB[i-1,j]) + ktb2*(tempW2[i,j] + tempB[i-1,j]) + ktb3*(tempB[i-1,j]) + ktb4*(tempB[i+1,j]+tempB[i-1,j])
+            val = ktb2*(tempW1[i,j] + tempB[i-1,j]) + ktb3*(tempW2[i,j] + tempB[i-1,j]) + ktb4*(tempB[i-1,j]) + ktb5*(tempB[i+1,j]+tempB[i-1,j])
           elif num == 2:
             val = ktw12*(tempA[i,j] + tempA[i,j-1]) + ktw13*(tempB[i,j] + tempB[i-1,j]) + ktw14*(tempW1[i+1,j] + tempW1[i-1,j]) + ktw15*(tempW1[i,j-1] + tempW1[i,j+1])
           elif num == 3:
@@ -88,9 +89,6 @@ def gauss_siedel(num, arr):
     return True
   return False
 
-
-#eqnB = ktb1*(tempW1[i,j] + tempB[i-1,j]) + ktb2*(tempW2[i,j] + tempB[i-1,j]) + ktb3*(tempB[i-1,j]) + ktb4*(tempB[i+1,j]+tempB[i-1,j])
-#eqnW1 = ktw2*(tempA[i,j] + tempA[i,j-1]) + ktw3*(tempB[i,j] + tempB[i-1,j]) + ktw4*(tempW1[i+1,j] + tempW1[i-1,j]) + ktw5*(tempW1[i,j-1] + tempW1[i,j+1])
 
 seq = [(1,tempB),(2,tempW1),(3,tempW2),(4,tempA),(5,tempC)]
 counter = 0
