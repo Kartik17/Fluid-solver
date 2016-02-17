@@ -2,27 +2,31 @@
 
 
 from timestart import *
-import pdb;pdb.set_trace()
+#import pdb;pdb.set_trace()
 print 'tempA:'
 print tempA
+finalB,finalA,finalC = [],[],[]
+reset()
 
 def gauss_siedel_2(num, arr):
   count,test = 0,0
+  start = 0
+  if num == 1:
+    start = 1
   while count<4:
-    for i in range(1,sizeX-1):
-      for j in range(1,sizeY-1):
-#      import pdb;pdb.set_trace()
+    for i in range(start,sizeX-1):
+      for j in range(0,sizeY-1):
         if not checker[i][j]:
           if num == 1:
             val = ktb1*tempB[i,j] + ktb2*(tempW12[i,j] + tempB2[i-1,j]) + ktb3*(tempW22[i,j] + tempB2[i-1,j]) + ktb4*(tempB2[i-1,j]) + ktb5*(tempB2[i+1,j]+tempB2[i-1,j])
           elif num == 2:
-            val = ktw11*tempW1 + ktw12*(tempA2[i,j] + tempA2[i,j-1]) + ktw13*(tempB2[i,j] + tempB2[i-1,j]) + ktw14*(tempW12[i+1,j] + tempW12[i-1,j]) + ktw15*(tempW12[i,j-1] + tempW12[i,j+1])
+            val = ktw11*tempW1[i,j] + ktw12*(tempA2[i,j] + tempA2[i,j-1]) + ktw13*(tempB2[i,j] + tempB2[i-1,j]) + ktw14*(tempW12[i+1,j] + tempW12[i-1,j]) + ktw15*(tempW12[i,j-1] + tempW12[i,j+1])
           elif num == 3:
-            val = ktw21*tempW2 + ktw22*(tempB2[i,j] + tempB2[i-1,j]) + ktw23*(tempC2[i,j] + tempC2[i,j-1]) + ktw25*(tempW22[i+1,j] + tempW22[i-1,j]) + ktw26*(tempW22[i,j-1] + tempW22[i,j+1])
+            val = ktw21*tempW2[i,j] + ktw22*(tempB2[i,j] + tempB2[i-1,j]) + ktw23*(tempC2[i,j] + tempC2[i,j-1]) + ktw25*(tempW22[i+1,j] + tempW22[i-1,j]) + ktw26*(tempW22[i,j-1] + tempW22[i,j+1])
           elif num == 4:
-            val = kta1*tempA + kta2*tempW12[i,j] + kta3*tempA2[i,j-1] + kta4*(tempA2[i,j+1] + tempA2[i,j-1])
+            val = kta1*tempA[i,j] + kta2*tempW12[i,j] + kta3*tempA2[i,j-1] + kta4*(tempA2[i,j+1] + tempA2[i,j-1])
           elif num == 5:
-            val = ktc1*tempC + ktc2*tempW22[i,j] + ktc3*tempC2[i-1,j] + ktc4*(tempC2[i+1,j] + tempC2[i-1,j])
+            val = ktc1*tempC[i,j] + ktc2*tempW22[i,j] + ktc3*tempC2[i-1,j] + ktc4*(tempC2[i+1,j] + tempC2[i-1,j])
 
           if abs(val-arr[i,j])>error:
             arr[i,j] = val
@@ -32,7 +36,6 @@ def gauss_siedel_2(num, arr):
             count+=1
 
   reset()
-  print arr,num
   if test:
     return True
   return False
@@ -60,6 +63,16 @@ for i in range(timesteps):
     if gauss_siedel_2(pai[0], pai[1]):
       seq.append(pai)
 
+# Calculate result
+  tem1,tem2,tem3 = 0,0,0
+  for j in range(sizeY):
+    tem1 += tempB2[sizeX-2,j]
+    tem2 += tempA2[sizeX-2,j]
+    tem3 += tempC2[sizeX-2,j]
+  finalB.append(tem1/sizeY)
+  finalA.append(tem2/sizeY)
+  finalC.append(tem3/sizeY)  
+
   tempA = np.copy(tempA2)
   tempB = np.copy(tempB2)
   tempC = np.copy(tempC2)
@@ -78,3 +91,9 @@ print tempA
 print 'Temperature of Fluid C'
 print tempC
 
+print finalB
+xran = [i for i in range(timesteps)]
+plt.plot(xran, finalB)
+plt.plot(xran, finalA, color='r')
+plt.plot(xran, finalC, color='g')
+plt.show()

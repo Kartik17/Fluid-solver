@@ -46,6 +46,7 @@ ktc2 = 1/c1
 ktc3 = (Ecb/(Rcb*deltaX) - 0.5)/a1
 ktc4 = Na/(Pec*deltaX*deltaX)/c1
 
+import pdb;pdb.set_trace()
 
 print 'Calculated constants'
 error = 0.005

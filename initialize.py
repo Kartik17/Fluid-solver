@@ -2,7 +2,7 @@
     the entire grid at t = 0'''
 
 import numpy as np
-import matplotlib as mp
+import matplotlib.pyplot as plt
 
 infi = 999999999999
 
