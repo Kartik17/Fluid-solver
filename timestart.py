@@ -51,19 +51,19 @@ import pdb;pdb.set_trace()
 print 'Calculated constants'
 error = 0.005
 checker = []
-for _ in range(sizeY):
-  checker.append([False]*sizeX)
+for _ in range(int(sizeY)):
+  checker.append([False]*countX)
 
 def reset():
-  for i in range(1,sizeX-1):
-    for j in range(1,sizeY-1):
+  for i in range(1,countX-1):
+    for j in range(1,countY-1):
       checker[i][j] = False
 
 def gauss_siedel(num, arr):
   count,test = 0,0
   while count<4:
-    for i in range(1,sizeX-1):
-      for j in range(1,sizeY-1):
+    for i in range(1,countX-1):
+      for j in range(1,countY-1):
 #      import pdb;pdb.set_trace()
         if not checker[i][j]:
           if num == 1:

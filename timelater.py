@@ -3,8 +3,6 @@
 
 from timestart import *
 #import pdb;pdb.set_trace()
-print 'tempA:'
-print tempA
 finalB,finalA,finalC = [],[],[]
 reset()
 
@@ -14,8 +12,8 @@ def gauss_siedel_2(num, arr):
   if num == 1:
     start = 1
   while count<4:
-    for i in range(start,sizeX-1):
-      for j in range(0,sizeY-1):
+    for i in range(start,countX-1):
+      for j in range(0,countY-1):
         if not checker[i][j]:
           if num == 1:
             val = ktb1*tempB[i,j] + ktb2*(tempW12[i,j] + tempB2[i-1,j]) + ktb3*(tempW22[i,j] + tempB2[i-1,j]) + ktb4*(tempB2[i-1,j]) + ktb5*(tempB2[i+1,j]+tempB2[i-1,j])
@@ -65,7 +63,7 @@ for i in range(timesteps):
 
 # Calculate result
   tem1,tem2,tem3 = 0,0,0
-  for j in range(sizeY):
+  for j in range(countY):
     tem1 += tempB2[sizeX-2,j]
     tem2 += tempA2[sizeX-2,j]
     tem3 += tempC2[sizeX-2,j]
@@ -92,6 +90,8 @@ print 'Temperature of Fluid C'
 print tempC
 
 print finalB
+print finalA
+print finalC
 xran = [i for i in range(timesteps)]
 plt.plot(xran, finalB)
 plt.plot(xran, finalA, color='r')
