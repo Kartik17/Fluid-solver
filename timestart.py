@@ -25,7 +25,7 @@ ktw15 = lamdaY*Na/(deltaY*deltaY*W1)
 
 # Constants for Wall 2
 W2 = (1-Si)/deltaTheta + 1/(1-phi) + Rcb + 2*lamdaX*Na/(deltaX*deltaX) + 2*lamdaY*Na/(deltaY*deltaY)
-ktw21 = 11 # Ignored
+ktw21 = (1-Si)/(deltaTheta*W2) # Ignored
 ktw22 = 1/(2*(1-phi)*W2)
 ktw23 = Rcb/2*W2
 ktw24 = (1/(1-phi) + Rcb)/W2
@@ -45,7 +45,6 @@ ktc1 = Vc/(Rcb*deltaTheta*c1)       # Ignored at time zero (k=0)
 ktc2 = 1/c1
 ktc3 = (Ecb/(Rcb*deltaX) - 0.5)/a1
 ktc4 = Na/(Pec*deltaX*deltaX)/c1
-
 import pdb;pdb.set_trace()
 
 print 'Calculated constants'
@@ -61,10 +60,10 @@ def reset():
 
 def gauss_siedel(num, arr):
   count,test = 0,0
-  while count<4:
+  while count<count_checker:
     for i in range(1,countX-1):
       for j in range(1,countY-1):
-#      import pdb;pdb.set_trace()
+#        import pdb;pdb.set_trace()
         if not checker[i][j]:
           if num == 1:
             val = ktb2*(tempW1[i,j] + tempB[i-1,j]) + ktb3*(tempW2[i,j] + tempB[i-1,j]) + ktb4*(tempB[i-1,j]) + ktb5*(tempB[i+1,j]+tempB[i-1,j])
@@ -91,9 +90,10 @@ def gauss_siedel(num, arr):
   return False
 
 
-seq = [(1,tempB),(2,tempW1),(3,tempW2),(4,tempA),(5,tempC)]
+seq = [(2,tempW1),(3,tempW2),(1,tempB),(4,tempA),(5,tempC)]
 counter = 0
 while seq:
+#  import pdb;pdb.set_trace()
   pai = seq.pop(0)
   counter+=1
   print counter

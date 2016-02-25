@@ -11,7 +11,7 @@ def gauss_siedel_2(num, arr):
   start = 0
   if num == 1:
     start = 1
-  while count<4:
+  while count<count_checker:
     for i in range(start,countX-1):
       for j in range(0,countY-1):
         if not checker[i][j]:
@@ -49,8 +49,12 @@ for i in range(timesteps):
 
 # Getting initial input over fluid B
 
-  for j in range(sizeY):
+  for j in range(countY):
     tempB2[0,j] = 1         # For constant input
+
+  for j in range(countY):
+    tempC2[0,j] = 1         # For constant input
+
 
   seq = [(1,tempB2),(2,tempW12),(3,tempW22),(4,tempA2),(5,tempC2)]
   counter = 0
