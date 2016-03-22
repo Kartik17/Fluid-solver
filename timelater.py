@@ -12,19 +12,21 @@ def gauss_siedel_2(num, arr):
   if num == 1:
     start = 1
   while count<count_checker:
-    for i in range(start,countX-1):
-      for j in range(0,countY-1):
+    for i in range(start,countX):
+      for j in range(0,countY):
         if not checker[i][j]:
+          res = image_point(i,j,countX-1,countY-1)
+          incX,incY,decX,decY = res[0],res[1],res[2],res[3]
           if num == 1:
-            val = ktb1*tempB[i,j] + ktb2*(tempW12[i,j] + tempB2[i-1,j]) + ktb3*(tempW22[i,j] + tempB2[i-1,j]) + ktb4*(tempB2[i-1,j]) + ktb5*(tempB2[i+1,j]+tempB2[i-1,j])
+            val = ktb1*tempB[i,j] + ktb2*(tempW12[i,j] + tempB2[decX,j]) + ktb3*(tempW22[i,j] + tempB2[decX,j]) + ktb4*(tempB2[decX,j]) + ktb5*(tempB2[incX,j]+tempB2[decX,j])
           elif num == 2:
-            val = ktw11*tempW1[i,j] + ktw12*(tempA2[i,j] + tempA2[i,j-1]) + ktw13*(tempB2[i,j] + tempB2[i-1,j]) + ktw14*(tempW12[i+1,j] + tempW12[i-1,j]) + ktw15*(tempW12[i,j-1] + tempW12[i,j+1])
+            val = ktw11*tempW1[i,j] + ktw12*(tempA2[i,j] + tempA2[i,decY]) + ktw13*(tempB2[i,j] + tempB2[decX,j]) + ktw14*(tempW12[incX,j] + tempW12[decX,j]) + ktw15*(tempW12[i,decY] + tempW12[i,incY])
           elif num == 3:
-            val = ktw21*tempW2[i,j] + ktw22*(tempB2[i,j] + tempB2[i-1,j]) + ktw23*(tempC2[i,j] + tempC2[i,j-1]) + ktw25*(tempW22[i+1,j] + tempW22[i-1,j]) + ktw26*(tempW22[i,j-1] + tempW22[i,j+1])
+            val = ktw21*tempW2[i,j] + ktw22*(tempB2[i,j] + tempB2[decX,j]) + ktw23*(tempC2[i,j] + tempC2[i,decY]) + ktw25*(tempW22[incX,j] + tempW22[decX,j]) + ktw26*(tempW22[i,decY] + tempW22[i,incY])
           elif num == 4:
-            val = kta1*tempA[i,j] + kta2*tempW12[i,j] + kta3*tempA2[i,j-1] + kta4*(tempA2[i,j+1] + tempA2[i,j-1])
+            val = kta1*tempA[i,j] + kta2*tempW12[i,j] + kta3*tempA2[i,decY] + kta4*(tempA2[i,incY] + tempA2[i,decY])
           elif num == 5:
-            val = ktc1*tempC[i,j] + ktc2*tempW22[i,j] + ktc3*tempC2[i-1,j] + ktc4*(tempC2[i+1,j] + tempC2[i-1,j])
+            val = ktc1*tempC[i,j] + ktc2*tempW22[i,j] + ktc3*tempC2[decX,j] + ktc4*(tempC2[incX,j] + tempC2[decX,j])
 
           if abs(val-arr[i,j])>error:
             arr[i,j] = val

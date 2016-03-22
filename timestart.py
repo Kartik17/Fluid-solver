@@ -75,11 +75,12 @@ def reset():
 def gauss_siedel(num, arr):
   count,test = 0,0
   while count<count_checker:
-    for i in range(1,countX-1):
-      for j in range(1,countY-1):
-        res = image_point(i,j,countX,countY)
-        incX,incY,decX,decY = res[0],res[1],res[2],res[3]
+    for i in range(1,countX):
+      for j in range(1,countY):
+        print 'Gori',j
         if not checker[i][j]:
+          res = image_point(i,j,countX-1,countY-1)
+          incX,incY,decX,decY = res[0],res[1],res[2],res[3]
           if num == 1:
             val = ktb2*(tempW1[i,j] + tempB[decX,j]) + ktb3*(tempW2[i,j] + tempB[decX,j]) + ktb4*(tempB[decX,j]) + ktb5*(tempB[incX,j]+tempB[decX,j])
           elif num == 2:
