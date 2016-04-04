@@ -54,8 +54,8 @@ for i in range(timesteps):
   for j in range(countY):
     tempB2[0,j] = 1         # For constant input
 
-  for j in range(countY):
-    tempC2[0,j] = 1         # For constant input
+#  for j in range(countY):
+#    tempC2[0,j] = 1         # For constant input
 
 
   seq = [(1,tempB2),(2,tempW12),(3,tempW22),(4,tempA2),(5,tempC2)]
@@ -70,9 +70,9 @@ for i in range(timesteps):
 # Calculate result
   tem1,tem2,tem3 = 0,0,0
   for j in range(countY):
-    tem1 += tempB2[sizeX-2,j]
-    tem2 += tempA2[sizeX-2,j]
-    tem3 += tempC2[sizeX-2,j]
+    tem1 += tempB2[sizeX-1,j]
+    tem2 += tempA2[sizeX-1,j]
+    tem3 += tempC2[sizeX-1,j]
   finalB.append(tem1/sizeY)
   finalA.append(tem2/sizeY)
   finalC.append(tem3/sizeY)  

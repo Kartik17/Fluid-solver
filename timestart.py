@@ -59,7 +59,7 @@ ktc1 = Vc/(Rcb*deltaTheta*c1)       # Ignored at time zero (k=0)
 ktc2 = 1/c1
 ktc3 = (Ecb/(Rcb*deltaX) - 0.5)/a1
 ktc4 = Na/(Pec*deltaX*deltaX)/c1
-import pdb;pdb.set_trace()
+#import pdb;pdb.set_trace()
 
 print 'Calculated constants'
 error = 0.005
@@ -74,9 +74,12 @@ def reset():
 
 def gauss_siedel(num, arr):
   count,test = 0,0
+  start = 0
+  if num == 1:
+    start = 1
   while count<count_checker:
-    for i in range(1,countX):
-      for j in range(1,countY):
+    for i in range(start,countX):
+      for j in range(0,countY):
         print 'Gori',j
         if not checker[i][j]:
           res = image_point(i,j,countX-1,countY-1)
