@@ -6,13 +6,16 @@ import matplotlib.pyplot as plt
 
 infi = 999999999999.0
 
-sizeX = 10.0
-sizeY = 10.0
-deltaTheta = 0.2       # Dimensionless time steps
+sizeX = 50.0
+sizeY = 50.0
+deltaTheta = 0.5      # Dimensionless time steps
 
 countX = int(sizeX)
 countY = int(sizeY)
-count_checker = (countX-2)*(countY-2)
+count_checker_all = (countX)*(countY)
+count_checker_B = (countX-1)*(countY-2)
+count_checker_A = (countX-2)*(countY-1)
+
 tempA = np.zeros(shape=(sizeX,sizeY))
 tempB = np.zeros(shape=(sizeX,sizeY))
 tempC = np.zeros(shape=(sizeX,sizeY))
@@ -34,12 +37,12 @@ Peb = infi
 
 # For Wall 1
 Si = 0.5
-Rab = 1.0
+Rab = 2.0
 lamdaX = 0.0
 lamdaY = 0.0
 
 # For Wall 2
-Rcb = 1.0
+Rcb = 2.0
 
 # For Fluid A
 Va = 0.0

@@ -8,12 +8,19 @@ reset()
 
 def gauss_siedel_2(num, arr):
   count,test = 0,0
-  start = 0
-  if num == 1:
-    start = 1
+  startX, startY, endX, endY = 0,0,countX,countY
+  count_checker = count_checker_all
+  if num == 1 or num == 5:
+    startX, startY, endY = 1,1, countY-1
+    count_checker = count_checker_B
+
+  if num == 4:
+    startX,startY,endX = 1,1,countX-1
+    count_checker = count_checker_A
+
   while count<count_checker:
-    for i in range(start,countX):
-      for j in range(0,countY):
+    for i in range(startX,endX):
+      for j in range(startY,endY):
         if not checker[i][j]:
           res = image_point(i,j,countX-1,countY-1)
           incX,incY,decX,decY = res[0],res[1],res[2],res[3]
@@ -54,8 +61,8 @@ for i in range(timesteps):
   for j in range(countY):
     tempB2[0,j] = 1         # For constant input
 
-#  for j in range(countY):
-#    tempC2[0,j] = 1         # For constant input
+  for j in range(countY):
+    tempC2[0,j] = 1         # For constant input
 
 
   seq = [(1,tempB2),(2,tempW12),(3,tempW22),(4,tempA2),(5,tempC2)]
@@ -66,6 +73,7 @@ for i in range(timesteps):
     print counter
     if gauss_siedel_2(pai[0], pai[1]):
       seq.append(pai)
+    #import pdb;pdb.set_trace()  
 
 # Calculate result
   tem1,tem2,tem3 = 0,0,0
