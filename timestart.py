@@ -130,6 +130,18 @@ while seq:
   if gauss_siedel(pai[0], pai[1]):
     seq.append(pai)
 
+import xlsxwriter
+workbook = xlsxwriter.Workbook('temp.xlsx')
+worksheet = workbook.add_worksheet()
+row,col = 0,0
+for grid in tempW1:
+  col = 0
+  for val in grid:
+    worksheet.write(row,col,float(val))
+    col = col+1
+  row = row+1  
+
+workbook.close()
 import pdb;pdb.set_trace()
 print 'FINAL VALUE\n'
 print 'Temperature of Fluid B'
